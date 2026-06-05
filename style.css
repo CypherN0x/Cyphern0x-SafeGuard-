@@ -1,0 +1,415 @@
+:root {
+    --bg-dark: #0a0a0a; /* McAfee Deep Black/Grey */
+    --bg-sidebar: #121212;
+    --bg-card: #1e1e1e;
+    --mcafee-red: #c0121a; /* Official McAfee Red */
+    --mcafee-red-glow: rgba(192, 18, 26, 0.4);
+    --pure-white: #ffffff;
+    --text-gray: #a0a0a0;
+    --accent-color: #c0121a;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', 'Bahnschrift', sans-serif;
+    background: var(--bg-dark);
+    color: var(--pure-white);
+    overflow: hidden;
+    user-select: none;
+    border: 1px solid var(--mcafee-red);
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 90px;
+    background: var(--bg-sidebar);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--pure-white);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px var(--mcafee-red-glow);
+    font-family: 'Consolas', monospace;
+}
+
+.brand-owner {
+    font-size: 14px;
+    color: var(--mcafee-red);
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px var(--mcafee-red-glow);
+    font-family: 'Bahnschrift', sans-serif;
+    border-bottom: 1px solid rgba(192, 18, 26, 0.2);
+    padding-bottom: 5px;
+    width: 80%;
+}
+
+.lang-selector {
+    margin-top: auto;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 0 10px;
+}
+
+#lang-select {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--mcafee-red);
+    border: 1px solid rgba(192, 18, 26, 0.3);
+    padding: 5px;
+    font-size: 12px;
+    font-family: 'Consolas', monospace;
+    cursor: pointer;
+    outline: none;
+}
+
+#lang-select option {
+    background: var(--bg-sidebar);
+    color: var(--mcafee-red);
+}
+
+.nav-item {
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.nav-item:hover {
+    color: var(--pure-white);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+    color: var(--mcafee-red);
+    background: rgba(192, 18, 26, 0.1);
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--mcafee-red);
+    box-shadow: -2px 0 10px var(--mcafee-red);
+}
+
+.nav-item span {
+    font-size: 11px;
+    display: block;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background: radial-gradient(circle at top right, #005a2d, var(--bg-dark));
+    position: relative;
+}
+
+/* Professional Overlay Effect */
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=');
+    pointer-events: none;
+}
+
+.view {
+    display: none;
+    flex: 1;
+    animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.view.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    -webkit-app-region: drag;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: var(--pure-white);
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.status-badge {
+    background: var(--mcafee-red);
+    color: var(--pure-white);
+    padding: 4px 15px;
+    font-weight: 800;
+    font-size: 11px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-top: 10px;
+    clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
+    box-shadow: 0 0 10px var(--mcafee-red-glow);
+}
+
+/* Cards & Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 25px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--mcafee-red);
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    margin: 0 0 20px 0;
+    font-size: 14px;
+    color: var(--mcafee-red);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.card h3::before {
+    content: '▶';
+    font-size: 10px;
+    margin-right: 10px;
+}
+
+/* Buttons */
+.gx-btn {
+    background: transparent;
+    border: 1px solid var(--mcafee-red);
+    color: var(--mcafee-red);
+    padding: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    margin-top: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.gx-btn:hover {
+    background: var(--mcafee-red);
+    color: var(--pure-white);
+    box-shadow: 0 0 20px var(--mcafee-red-glow);
+}
+
+/* Logs */
+.log-box {
+    background: rgba(0, 0, 0, 0.4);
+    border-left: 3px solid var(--mcafee-red);
+    padding: 15px;
+    font-family: 'Consolas', monospace;
+    font-size: 13px;
+    color: #ffaaaa;
+    height: 300px;
+    overflow-y: auto;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Footer */
+.footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mini-log-bar {
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    color: var(--mcafee-red);
+}
+
+.footer-info {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 1px;
+}
+
+
+/* Real Scan UI */
+.scanner-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scanner-loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid rgba(192, 18, 26, 0.1);
+    border-top: 3px solid var(--mcafee-red);
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+    box-shadow: 0 0 15px var(--mcafee-red-glow);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.scanner-status {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 900;
+    font-family: 'Consolas', monospace;
+    text-shadow: 0 0 10px var(--mcafee-red);
+}
+
+.scanning-file-text {
+    font-size: 10px;
+    color: var(--mcafee-red);
+    height: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-top: 10px;
+    font-family: monospace;
+    text-align: center;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    margin-top: 10px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #660000, var(--mcafee-red));
+    box-shadow: 0 0 10px var(--mcafee-red);
+    transition: width 0.3s ease;
+}
+
+.card-content {
+    flex: 1;
+    margin: 15px 0;
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.gx-btn {
+    align-self: flex-end;
+    background: var(--bursa-green);
+    color: white;
+    border: none;
+    padding: 8px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.gx-btn:hover {
+    background: var(--bg-sidebar);
+    transform: translateY(-2px);
+}
+
+/* Specific Cards */
+.log-box {
+    background: #002613;
+    color: #00ff00;
+    font-family: 'Consolas', monospace;
+    font-size: 11px;
+    padding: 10px;
+    flex: 1;
+    overflow-y: auto;
+    border-radius: 4px;
+}
+
+.mini-log-bar {
+    background: var(--bone-white);
+    border-radius: 4px;
+    padding: 8px 15px;
+    margin-bottom: 10px;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    color: var(--bg-dark);
+    display: flex;
+    align-items: center;
+}
+
+.footer-info {
+    font-size: 11px;
+    color: var(--bone-white);
+}
+
+.clean {
+    color: #00ff00;
+    font-weight: bold;
+}
