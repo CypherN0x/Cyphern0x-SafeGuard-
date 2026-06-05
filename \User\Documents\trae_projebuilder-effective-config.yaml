@@ -1,0 +1,18 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.cyphern0x.safeguardgx
+productName: SafeGuardGX
+win:
+  target: portable
+  requestedExecutionLevel: requireAdministrator
+  forceCodeSigning: false
+  asar: false
+extraResources:
+  - from: ../SafeGuard.exe
+    to: SafeGuard.exe
+files:
+  - filter:
+      - '**/*'
+      - '!dist'
+electronVersion: 42.3.3
