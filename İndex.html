@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CypherN0x SafeGuard GX</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">GX</div>
+            <div class="brand-owner">BY<br>CYPHERN0X</div>
+            <nav id="sidebar-nav">
+                <div class="nav-item active" data-view="home">🏠<br><span data-i18n="home">Home</span></div>
+                <div class="nav-item" data-view="scans">🔍<br><span data-i18n="scans">Scans</span></div>
+                <div class="nav-item" data-view="files">⚙️<br><span data-i18n="files">Processes</span></div>
+                <div class="nav-item" data-view="net">🌐<br><span data-i18n="net">Net</span></div>
+                <div class="nav-item" data-view="logs">📋<br><span data-i18n="logs">Logs</span></div>
+                <div class="nav-item" data-view="settings">🛠️<br><span data-i18n="settings">Set</span></div>
+            </nav>
+            
+            <div class="lang-selector">
+                 <select id="lang-select">
+                     <option value="tr" selected>TURKISH</option>
+                     <option value="en">ENGLISH</option>
+                     <option value="de">GERMAN</option>
+                     <option value="ru">RUSSIAN</option>
+                     <option value="fr">FRENCH</option>
+                     <option value="es">SPANISH</option>
+                     <option value="ja">JAPANESE</option>
+                     <option value="zh">CHINESE</option>
+                     <option value="it">ITALIAN</option>
+                     <option value="pt">PORTUGUESE</option>
+                     <option value="ar">ARABIC</option>
+                     <option value="ko">KOREAN</option>
+                  </select>
+             </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="title-section">
+                    <h1>[ SAFEGUARD GX : EDITION 2026 ]</h1>
+                    <div class="status-bar">
+                        <span class="status-badge" data-i18n="status_secure">SYSTEM SECURE</span>
+                        <span class="encryption-badge" data-i18n="node">NODE</span>: CYPHERN0X_CORE
+                    </div>
+                </div>
+                <div class="window-controls">
+                    <button id="minimize" title="Minimize">_</button>
+                    <button id="close" title="Terminate">×</button>
+                </div>
+            </header>
+
+            <!-- Home View -->
+            <section id="view-home" class="view active">
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3 data-i18n="threat_detection">THREAT DETECTION</h3>
+                        <div class="card-content">
+                            <div class="scanner-container">
+                                <div class="scanner-loader"></div>
+                                <div class="scanner-status" id="scan-percentage">0.0%</div>
+                            </div>
+                            <div id="scanning-file" class="scanning-file-text">READY</div>
+                            <div class="progress-bar-bg">
+                                <div id="scan-progress" class="progress-bar-fill"></div>
+                            </div>
+                            <div class="scan-options" style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="shutdown-check" style="accent-color: var(--accent-green);">
+                                <label for="shutdown-check" style="font-size: 11px; color: #ccc; cursor: pointer;" data-i18n="shutdown_after">Shutdown after scan</label>
+                            </div>
+                        </div>
+                        <button class="gx-btn" onclick="startRealScan()" data-i18n="initiate_scan">INITIATE SCAN</button>
+                    </div>
+                    <div class="card">
+                        <h3 data-i18n="firewall_shield">FIREWALL SHIELD</h3>
+                        <div class="card-content">
+                            <div style="color: var(--accent-green); margin-top: 10px;" data-i18n="active_protections">ACTIVE PROTECTIONS</div>
+                            <ul style="list-style: none; padding: 0; font-size: 11px; color: #ccc;">
+                                <li>> INBOUND: FILTERING</li>
+                                <li>> OUTBOUND: ANALYZING</li>
+                                <li>> KERNEL: SECURE</li>
+                            </ul>
+                        </div>
+                        <button class="gx-btn" onclick="sendCommand('FIREWALL_ON')" data-i18n="configure">CONFIGURE</button>
+                    </div>
+                    <div class="card">
+                        <h3 data-i18n="quarantine">QUARANTINE</h3>
+                        <div class="card-content">
+                            <div style="text-align: center; margin-top: 20px; color: #666;" data-i18n="vault_empty">VAULT IS EMPTY</div>
+                        </div>
+                        <button class="gx-btn" data-i18n="access_storage">ACCESS STORAGE</button>
+                    </div>
+                </div>
+                
+                <div class="card" style="flex: 0.5;">
+                    <h3 data-i18n="global_network">GLOBAL NETWORK STATUS</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div style="color: #fff; font-family: monospace;"><span data-i18n="traffic">TRAFFIC</span>: <span id="live-traffic">0.0 KB/s</span></div>
+                        <div style="color: var(--mcafee-red); font-family: monospace;"><span data-i18n="encryption">ENCRYPTION</span>: AES-256</div>
+                    </div>
+                    <div class="traffic-graph-container" style="height: 40px; background: rgba(0,0,0,0.3); border: 1px solid rgba(192,18,26,0.2); display: flex; align-items: flex-end; gap: 2px; padding: 2px;">
+                        <!-- Traffic bars will be injected here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Scans View -->
+            <section id="view-scans" class="view">
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3 data-i18n="quick_analysis">QUICK ANALYSIS</h3>
+                        <p style="font-size: 11px; color: #888;">Scans memory and startup entries for immediate threats.</p>
+                        <button class="gx-btn" onclick="sendCommand('SCAN_QUICK')" data-i18n="initiate_scan">EXECUTE</button>
+                    </div>
+                    <div class="card">
+                        <h3 data-i18n="full_scan">FULL SYSTEM SCAN</h3>
+                        <p style="font-size: 11px; color: #888;">Deep dive into every sector of the local drives.</p>
+                        <button class="gx-btn" onclick="sendCommand('SCAN_ALL')" data-i18n="initiate_scan">EXECUTE</button>
+                    </div>
+                    <div class="card">
+                        <h3 data-i18n="heuristic_scan">HEURISTIC SCAN</h3>
+                        <p style="font-size: 11px; color: #888;">Behavioral analysis of unknown binaries.</p>
+                        <button class="gx-btn" data-i18n="initiate_scan">EXECUTE</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Net View -->
+            <section id="view-net" class="view">
+                <div class="dashboard-grid">
+                    <div class="card" style="grid-column: span 2;">
+                        <h3 data-i18n="active_nodes">ACTIVE NETWORK NODES</h3>
+                        <div id="net-list" class="log-box" style="height: 250px; font-size: 11px;">
+                            [ SYSTEM ] WAITING FOR DATA CAPTURE...
+                        </div>
+                        <button class="gx-btn" onclick="sendCommand('LIST_NET')" data-i18n="configure">REFRESH DATA</button>
+                    </div>
+                    <div class="card">
+                        <h3 data-i18n="traffic_control">TRAFFIC CONTROL</h3>
+                        <p style="font-size: 11px; color: #888;">Block suspicious inbound/outbound requests.</p>
+                        <button class="gx-btn" onclick="sendCommand('FIREWALL_ON')">SHIELD: OFF</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Files View (Now Process Monitor) -->
+            <section id="view-files" class="view">
+                <div class="dashboard-grid">
+                    <div class="card" style="grid-column: span 2;">
+                        <h3 data-i18n="process_monitor">SYSTEM PROCESS MONITOR</h3>
+                        <div id="proc-list" class="log-box" style="height: 300px; font-size: 11px;">
+                            [ SYSTEM ] WAITING FOR PROCESS SCAN...
+                        </div>
+                        <button class="gx-btn" onclick="sendCommand('LIST_PROCS')" data-i18n="scan_processes">SCAN PROCESSES</button>
+                    </div>
+                    <div class="card">
+                        <h3 data-i18n="terminal_control">TERMINAL CONTROL</h3>
+                        <p style="font-size: 11px; color: #888;">Enter PID to force terminate a suspicious task.</p>
+                        <input type="text" id="pid-input" placeholder="PID (e.g. 1234)" style="background:rgba(0,0,0,0.5); color:var(--accent-green); border:1px solid var(--accent-green); margin-bottom:10px; padding:10px; font-family:monospace;">
+                        <button class="gx-btn" onclick="killProc()" data-i18n="terminate_now">TERMINATE NOW</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Logs View -->
+            <section id="view-logs" class="view">
+                <div class="log-container">
+                    <h3>SYSTEM EVENT LOGS</h3>
+                    <div id="full-log-box" class="log-box full-logs"></div>
+                    <div class="log-controls">
+                        <button class="gx-btn" onclick="clearLogs()">CLEAR ALL LOGS</button>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div id="mini-log-bar" class="mini-log-bar">
+                    <span class="prefix">></span> <span id="latest-log" data-i18n="latest_event">Sistem başlatıldı. Komut bekleniyor...</span>
+                </div>
+                <div class="footer-info">
+                    LAST SCAN RESULT: <span class="clean">CLEAN</span> | THREAT DEFINITIONS: VER. 1.392 (UPDATED) | <span data-i18n="developed_by">DEVELOPED BY CYPHERN0X</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
